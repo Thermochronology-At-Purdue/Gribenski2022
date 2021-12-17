@@ -1,11 +1,34 @@
 function out = D0calc_MonteCarloErrors(expdata,geomflag)
 
-%Code written by Marissa Tremblay, modified from earlier code written by 
-%Greg Balco. Calculates diffusivities from step-heating degasing 
-%experiments using equations of Fechtig and Kalbitzer (1966). Propagates 
-%uncertainty using a Monte-Carlo approach. Future versions will have an 
-%iterative scheme that determines how many data points to include in a 
-%linear fit (currently this is chosen by the user).
+%This function calculates diffusivities from step-heating degasing 
+%experiments using equations of Fetchig and Kalbitzer (1966). 
+%Propagates uncertainty using a Monte-Carlo approach.
+
+%Fechtig, H., and Kalbitzer, S. 1966. The diffusion of argon in 
+%potassium-bearing solids. In: Schaeffer, O.A., Zahringer, J. (eds). 
+%Potassium Argon Dating. Springer, Berlin, pp. 68–107.
+
+%Written by Marissa Tremblay, modified from earlier code written by Greg Balco. 
+%Contact: tremblam@purdue.edu
+%Last modified: 2021.12.17
+
+%Copyright 2021, Marissa Tremblay
+%All rights reserved
+%Developed in part with funding from the National Science Foundation and
+%the American Association for the Advancement of Science.
+
+%This program is free software: you can redistribute it and/or modify
+%it under the terms of the GNU General Public License as published by
+%the Free Software Foundation, either version 3 of the License, or
+%(at your option) any later version.
+
+%This program is distributed in the hope that it will be useful,
+%but WITHOUT ANY WARRANTY; without even the implied warranty of
+%MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%GNU General Public License for more details.
+
+%You should have received a copy of the GNU General Public License
+%along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 %% Take the data from the diffusion experiment and uses it to calculate ln(D/a2) values using Fechtig and Kalbitzer (1966).
 

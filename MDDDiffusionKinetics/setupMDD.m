@@ -1,19 +1,37 @@
-%Mat modif:
-%- add at end code lin to rpint direct results kinetics of fitting (to avoid to look in rsult file all the time)
 
-
-%Code written by Marissa Tremblay. Last modified 2018.05.02
-
-%This m-file is used to fit an MDD model to stepwise degassing diffusion
+%This code is used to fit an MDD model to stepwise degassing diffusion
 %experiment data. It is currently set up for only one isotope. The number
 %of domains is allowed to vary. The activation energy is assumed to be the
 %same across domains while the pre-exponential factor (D0/a^2) and the
 %fraction of gas in each domain varies. Needs the companion functions
 %D0calc_MonteCarloErros.m and TremblayMDD.m.
 
+%Written by Marissa Tremblay. 
+%Contact: tremblam@purdue.edu
+%Last modified 2021.12.17
+
+%Copyright 2021, Marissa Tremblay
+%All rights reserved
+%Developed in part with funding from the National Science Foundation and
+%the American Association for the Advancement of Science.
+
+%This program is free software: you can redistribute it and/or modify
+%it under the terms of the GNU General Public License as published by
+%the Free Software Foundation, either version 3 of the License, or
+%(at your option) any later version.
+
+%This program is distributed in the hope that it will be useful,
+%but WITHOUT ANY WARRANTY; without even the implied warranty of
+%MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%GNU General Public License for more details.
+
+%You should have received a copy of the GNU General Public License
+%along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+%%
 clear all; close all;
 
-%% Load data from diffusion experiment and calculate diffusivities
+%Load data from diffusion experiment and calculate diffusivities
 
 %indicate the experiment of interest here. changed on 2018.05.02 to open a
 %file selection dialog box, such that code is not modified every time a new
