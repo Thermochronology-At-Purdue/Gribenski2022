@@ -1,21 +1,28 @@
-%%% This is wrapper for the production-diffusion code, applied to multiple diffusion domains. 
-%%%Everything the user defines is input into this wrapper.
-%%%Last modified by Marissa M. Tremblay, 2017.03.07.
+%%
+%This is wrapper for the production-diffusion code, applied to multiple diffusion domains. 
+%Everything the user defines is input into this wrapper.
 
-%% NATACHA CHANGES: run forward sim for fixed LGM scenario
-%1) Load specific sample info directly from excel file
-%2) Load observation(measured) data sample info directly from excel file
-%!NEED to enter manually dataObs.r!%
-%3) Load Diffusion kinetics data (dataKD) directly from excel file
-%-> + l.50: added function for normalisation to dataObs.r (function
-%FormatNormLnD0aa)
-%->l.53-56: merged all info (sample Spe, samples Obs, sample KD)
-%->l.58-70: possibility to calculate internally ratio 3He and 10Be age (function
-%AgeCalc)
-%4) Load EDT scenarios directly from text file (from visit SUERC)and run
-%simulation
-%-> l.78-89, for multiple EDT scenarios, loop for automatic storage of data 
-%5) Plot results simulation and observed concentrations
+%Written by Marissa Tremblay.
+%Contact: tremblam@purdue.edu
+%Last modified: 2021.12.17
+
+%Copyright 2021, Marissa Tremblay
+%All rights reserved
+%Developed in part with funding from the National Science Foundation and
+%the American Association for the Advancement of Science.
+
+%This program is free software: you can redistribute it and/or modify
+%it under the terms of the GNU General Public License as published by
+%the Free Software Foundation, either version 3 of the License, or
+%(at your option) any later version.
+
+%This program is distributed in the hope that it will be useful,
+%but WITHOUT ANY WARRANTY; without even the implied warranty of
+%MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%GNU General Public License for more details.
+
+%You should have received a copy of the GNU General Public License
+%along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 %%
@@ -50,7 +57,7 @@ dataKD=readtable('./Data/KD_BestFit_MBTP9.xlsx');%USER INPUT (radius, Domin, Ea,
 dataKD = FormatNormLnD0aa(dataKD,dataObs.r);
 
 
-%% merge all data ( 1),2),3)) in same struct array "data"
+%% merge all data from parts 1?3 in same structure called "data"
 
 data = [fieldnames(dataSpe)' fieldnames(dataObs)' fieldnames(dataKD)'; struct2cell(dataSpe)' struct2cell(dataObs)' struct2cell(dataKD)'];
 data=struct(data{:});
@@ -69,7 +76,7 @@ data=struct(data{:});
 %     data.RetObsUnc=out.RetCalcUnc;
 % end
 
-%% 4) Load IsoEDT scenarios
+%% 4) Load EDT scenarios
 D=importdata('FixedLGMmin15_MBTP1.txt'); %USER INPUT: iso modEDT,isopaloeEDT, chage EDT10ka sharp and since 24 ka
 
 data.T0 = 0; %if you want to impose a surface temperature amplitude
@@ -89,7 +96,7 @@ c=2;
 end
 
 
-%% 5) Plot results and obs Conc
+%% 5) Plot results versus observed concentration
 
 %1) plot IsoEDT He Conc
 %make consistent plotting colors between plots

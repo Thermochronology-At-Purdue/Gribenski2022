@@ -1,5 +1,5 @@
-%Caculate 3He and 10Be age directly from concentrations using non time dependent Stone
-%scaling scheme
+%Caculate 3He and 10Be exposure age directly from concentrations using 
+%the non-time-dependent Stone scaling scheme
 
 %Rq. need to improve error calculation for 3He and 10be ages (l. 54 and 58: for now I put
 %roughly 10 % and add instrumental measureemnt error)

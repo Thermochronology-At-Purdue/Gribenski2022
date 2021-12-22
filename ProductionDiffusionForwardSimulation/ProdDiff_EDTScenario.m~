@@ -3,30 +3,11 @@ function out = ProdDiff_EDTScenario(data)
 % Spherical-geometry production-diffusion model
 
 %This has spatially homogeneous production that can vary with time. 
-%Code was originally written by Greg Balco & David Shuster for modeling 
-%apatite 4He/3He datasets. Modified here by Marissa Tremblay to model 
-%production and diffusion of cosmogenic noble gases.
+%Code was originally written by Greg Balco & David Shuster to model production 
+%and diffusion of radiogenic 4He 
+%for cosmic ray production and diffusion. 
 
-%Contact: tremblam@purdue.edu
-%Last modified: 2021.12.22
-
-%Copyright 2021, Marissa Tremblay
-%All rights reserved
-%Developed in part with funding from the National Science Foundation and
-%the American Association for the Advancement of Science.
-
-%This program is free software: you can redistribute it and/or modify
-%it under the terms of the GNU General Public License as published by
-%the Free Software Foundation, either version 3 of the License, or
-%(at your option) any later version.
-
-%This program is distributed in the hope that it will be useful,
-%but WITHOUT ANY WARRANTY; without even the implied warranty of
-%MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-%GNU General Public License for more details.
-
-%You should have received a copy of the GNU General Public License
-%along with this program.  If not, see <https://www.gnu.org/licenses/>.
+%Modified from 
 
 %% Unpack input data
 

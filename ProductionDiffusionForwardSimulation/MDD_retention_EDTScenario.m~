@@ -1,28 +1,6 @@
-%Setup to do production and diffusion with MDD model.
-%Takes user defined inputs from the wrapper code and packages them to be
-%passed to the production-diffusion code.
-
-%Written by Marissa Tremblay.
-%Contact: tremblam@purdue.edu
-%Last modified: 2021.12.17
-
-%Copyright 2021, Marissa Tremblay
-%All rights reserved
-%Developed in part with funding from the National Science Foundation and
-%the American Association for the Advancement of Science.
-
-%This program is free software: you can redistribute it and/or modify
-%it under the terms of the GNU General Public License as published by
-%the Free Software Foundation, either version 3 of the License, or
-%(at your option) any later version.
-
-%This program is distributed in the hope that it will be useful,
-%but WITHOUT ANY WARRANTY; without even the implied warranty of
-%MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-%GNU General Public License for more details.
-
-%You should have received a copy of the GNU General Public License
-%along with this program.  If not, see <https://www.gnu.org/licenses/>.
+%%%setup to do production and diffusion with MDD model.
+%%%takes user defined inputs from the wrapper code and packages them to be
+%%%passed to the production-diffusion code.
 
 function results = MDD_retention_EDTScenario(data)
 
@@ -55,27 +33,36 @@ input.fracs = data.fracs; %fraction of gas apportioned to each diffusion domain
 input.n = 512; %number of mesh points over which production-diffusion calculation takes place
 
 Temphist = data.fname; %load(data.fname); %load in the user-defined time-temperature histories
+%%%%%%%%%ModifNat%%%%%%
 times = Temphist(:,1); %the first column in this file should correspond to the time steps in years
 temps = Temphist(:,2:end);
+%input.dt = 2000;
 input.maxt = max(times); %total duration of the time-temperature history, in years
 input.Tt = times';%0:input.dt:input.maxt; 
 input.dt = input.maxt./(length(input.Tt)-1); %size of the time step, in years
 
 
 %run the production-diffusion function for each temperature history the user wants to test.
-for i = 1:size(temps,2) 
+for i = 1:size(temps,2); 
   %temperatures corresponding to each time step for a particular thermal history in  ºC
     input.TC = temps(:,i)'; %interp1(times,temps(:,i),input.Tt);
     input.TC = fliplr(input.TC);
     input.TZ = fliplr(input.Tt).*input.ee + input.ztoday; %calculate sample depth at each time step in g/cm^2.
+    %%%Former code Marissa Pliocene calculation of Tre for sample at depth
+    %for m = 1:length(input.TZ)
+        %input.TC(m) = input.TC(m) + abs(real(T0.*exp(-1*input.TZ(m).*sqrt(omega.*rho.*cp./(2.*k)))));%...
+            %.*exp(sqrt(-1).*((omega.*0)-input.TZ(m).*sqrt(omega.*rho.*cp./(2*k))))));
+        %input.TC(m) = real(input.TC(m));
+    %end  
     
     output = ProdDiff_EDTScenario(input);
+    
     
     results.actRtstep= output.actRtstep;
     results.romRtstep=output.romRtstep;
     results.TC=input.TC;
     
-    %results.actHeatomsgtotal(i) = output.actHeatomsgtotal;
+%   results.actHeatomsgtotal(i) = output.actHeatomsgtotal;
     results.totProduced(i) = output.totProducedConcstep(end);
     results.scale = output.P0./input.Pref;
     results.totProduced = output.totProducedConcstep;
@@ -85,6 +72,6 @@ for i = 1:size(temps,2)
     %%%careful each results step correspond to the last EDT-t history
     %%%scenario, while the final R and HE values are saved for all the EDT-t
     %%%scenarios given
-    results.P0=output.P0; %3He production rate at site
+    results.P0=output.P0; %Add NAt prod rate 3He at site
    
 end
