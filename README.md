@@ -9,3 +9,5 @@ There are two different sets of code associated with this manuscript. The first 
 The second set of code is located in the folder "ProductionDiffusionForwardSimulation". The code in this folder can be used to run forward simulations of cosmogenic noble gas production and diffusion for different exposure and thermal history scenarios. The user should edit inputs and run the code "wrap_PD_MDD_LGMScenario_MBTP1_fig3". An example dataset for implementing the forward model called is provided in folder "Data", and the user can reproduce Figure 3 using this example dataset and the example thermal history provided in the main folder, titled "FixedLGMmin15_MBTP1.txt". 
 
 Any questions about these Matlab codes should be directed to Marissa Tremblay, tremblam@purdue.edu. 
+
+[![DOI](https://zenodo.org/badge/442584835.svg)](https://zenodo.org/badge/latestdoi/442584835)
