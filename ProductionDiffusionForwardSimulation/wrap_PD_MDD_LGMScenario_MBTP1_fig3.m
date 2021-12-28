@@ -4,7 +4,7 @@
 
 %Written by Marissa Tremblay.
 %Contact: tremblam@purdue.edu
-%Last modified: 2021.12.17
+%Last modified: 2021.12.28
 
 %Copyright 2021, Marissa Tremblay
 %All rights reserved
@@ -46,9 +46,6 @@ dataObs=table2struct(dataObs);
 %Grain size on which measurement conducted
 dataObs.r = 0.045;%USER INPUT; cosmogenic grain size, in cm (radius);
 
-% %age and retention calculated outsidely or internally (1)
-% AgeCalcFunc=0;
-
 %% 3) Load Diffusion kinetics data 
 
 % Load raw data diffusion kinetics
@@ -62,25 +59,10 @@ dataKD = FormatNormLnD0aa(dataKD,dataObs.r);
 data = [fieldnames(dataSpe)' fieldnames(dataObs)' fieldnames(dataKD)'; struct2cell(dataSpe)' struct2cell(dataObs)' struct2cell(dataKD)'];
 data=struct(data{:});
 
-% %in case we want 10Be and 3He ages and ratio calculated internally
-% %(directly from measured concentrations) using non dependent time model
-% 
-% if AgeCalcFunc==1;  
-%     out=AgeCalc(data);
-%     
-%     data.HeObs=out.Age3He;
-%     data.HeObsUnc=out.Age3HeUnc;
-%     data.BeObs=out.Age10Be;
-%     data.BeObsUnc=out.Age10BeUnc;
-%     data.RetObs=out.RetCalc;
-%     data.RetObsUnc=out.RetCalcUnc;
-% end
-
 %% 4) Load EDT scenarios
 D=importdata('FixedLGMmin15_MBTP1.txt'); %USER INPUT: iso modEDT,isopaloeEDT, chage EDT10ka sharp and since 24 ka
 
 data.T0 = 0; %if you want to impose a surface temperature amplitude
-
 
 c=2;
     for j=2:1:size(D,2);
